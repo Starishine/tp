@@ -36,7 +36,7 @@ optimized for freelance tutors who prefer using **Command Line Interface (CLI)**
     * `list` : Lists all contacts.
 
     * `add n/John Doe p/98765432 e/johnd@example.com a/John street, Block 123, #01-01 d/Wednesday 
-      start/1500 end/1600`: <br> 
+      start/15:00 end/16:00`: <br> 
       Adds a student named `John Doe` to EduDex.
 
     * `delete 3` : Deletes the 3rd student shown in the current list from EduDex.
@@ -47,12 +47,13 @@ optimized for freelance tutors who prefer using **Command Line Interface (CLI)**
 
 ---
 
-## Features
+## MVP Features
 **Feature list**:
 1. [Add student](#add-student)
 2. [Delete student](#delete-student)
 3. [View all student contacts](#view-all-student-contacts)
-4. [Exit program](#exit-program)
+4. [Find student by name or day](#find-student-by-name-or-day)
+5. [Exit program](#exit-program)
 
 
 **Notes about the command format:**
@@ -102,17 +103,17 @@ Example:
 
 - TIME_START:
   - Acceptable values: a 4 digit integer (can be prefixed with 0s) whereby the first 2 digits are from 00 to 23 (inclusive); and the last 2 digits are from 00 to 59 (inclusive)
-  - Error message: “Enter the start time as: HHMM”
+  - Error message: “Enter the start time as: HH:MM”
 
 - TIME_END:
   - Acceptable values: a 4 digit integer (can be prefixed with 0s) whereby the first 2 digits are from 00 to 23 (inclusive); and the last 2 digits are from 00 to 59 (inclusive)
-  - Error message: “Enter the end time as: HHMM”
+  - Error message: “Enter the end time as: HH:MM”
 
 **Outputs**:
 - Succeed: 
 ```
 New student added: 
-<NAME>; Phone: <NUMBER>; Email: <EMAIL>; Address: <ADDRESS>; Day: <DAY>; TIME: <TIME_START> - <TIME_END>
+<NAME>; Phone: <NUMBER>; Email: <EMAIL>; Address: <ADDRESS>; Subject: Science; Day: <DAY>; TIME: <TIME_START> - <TIME_END>
 ```
 - Fail:
 ```
@@ -120,7 +121,7 @@ Invalid command format!
 add: Adds a student to the address book.
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS d/DAY start/TIME_START end/TIME_END`
 Example: add n/John Doe p/98765432 e/johnd@example.com a/John street, Block 123, #01-01 d/Wednesday
-start/1500 end/1600
+start/15:00 end/16:00
 ```
 
 <br>
@@ -166,9 +167,33 @@ The command `list` takes in no parameters.
 
 Output example: <br>
 `Here are all your contacts.`<br>
-<img src="docs/images/features_list_output.png" alt="Image for output of list command" width="800">
+
+<img alt="Image for output of list command" src="docs/images/features_list_output.png" width="800"/>
 
 <br>
+
+### Find student by name or day
+Finds all student contacts whose names or day contain any of the given keywords. <br>
+Format: `find <NAME1> <NAME2>...` or `find d/<DAY>`
+
+Example Commands:
+- `find alice bob charlie`
+- `find d/Monday`
+
+**Parameters**:
+- NAME:
+  - Acceptable values: any string will be accepted, input will not be modified or cleaned
+  - Error message: no error message, all inputs are accepted
+  - Matching is case-insensitive.
+- DAY:
+  - Acceptable values: { Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday }
+  - Error message: “Invalid Command Format. Days should only be one of the following: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday”
+
+**Outputs**:
+- Succeed: Shows a list of all the contacts that match the search criteria in the format
+- Output example: <br>
+`5 persons listed!`
+- Fail: `0 persons listed!` if no matching contacts found.
 
 ### Exit program
 Exits and closes the EduDex app.
